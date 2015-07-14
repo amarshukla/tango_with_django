@@ -4,13 +4,20 @@
 
     <head>
         <title>Rango</title>
+        <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
     </head>
 
     <body>
         <h1>Rango says...</h1>
         hello world! <strong>{{ boldmessage }}</strong><br />
-        
-        <img src="{% static "images/terminal_love.jpg" %}" alt="terminal love"/>
+        {% if categories %}
+            <ul>{% for category in categories %}</ul>
+               <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
+                {% endfor %}
+        {% else %}
+            <strong> There are no categories present. </strong>
+        {% endif %}
+        <img src="{% static "images/terminal_love.jpg" %}" alt="terminal love" width="480" height="300"/>
     	<a href="/rango/about/">About</a><br />
     </body>
 
