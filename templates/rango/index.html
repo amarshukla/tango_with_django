@@ -9,7 +9,9 @@
 
     <body>
         <h1>Rango says...</h1>
-        hello world! <strong>{{ boldmessage }}</strong><br />
+        hello world! <strong>{{ boldmessage }}</strong><br /> <br/>
+        <a href="/rango/add_category">Add New Category</a> <br/><br/>
+        <a href="/rango/add_page">Add New Page</a>
         {% if categories %}
             <ul>{% for category in categories %}</ul>
                <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
@@ -18,7 +20,17 @@
             <strong> There are no categories present. </strong>
         {% endif %}
         <img src="{% static "images/terminal_love.jpg" %}" alt="terminal love" width="480" height="300"/>
-    	<a href="/rango/about/">About</a><br />
+    	<a href="/rango/hey/{{ name }}">About</a><br />
+        <br><br>
+        {% if pages %}
+            <ul>Top 5 most viewed page in any category are : 
+            {% for page in pages %}
+                {%for i in page %}
+                    <li>{{i.title}}</li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+        {% endif %}
     </body>
 
 </html>

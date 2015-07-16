@@ -1,5 +1,6 @@
 from django.contrib import admin
 from rango.models import Page, Category
+from rango.models import UserProfile
 
 
 class PageInline(admin.StackedInline):
@@ -14,3 +15,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Page, PageAdmin)
+admin.site.register(UserProfile)
