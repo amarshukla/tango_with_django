@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Rango</title>
+    </head>
+
+    <body>
+        <div class="container">
+            
+            <div class="fake_img">
+                <h1>Registered User List</h1>
+            </div>
+
+            <div class="fake_img">
+                <a href="/rango/register/"><img src="{% static "images/appIcons/registerUser.png" %}" alt="register new user"/></a> 
+            </div>
+
+        </div>
+        
+            <ul class="tag">
+                
+                    <!--<li class="tag"><a class="tag" href="{{ user.info }}">{{ i }}</a></li>-->
+                    <div class="container">
+                        <div class="fake_img">
+                            <ul><img src="{{MEDIA_URL}}/{{detail.picture}}" width="90" height="90"/></ul>
+                                <li>{{detail}}</li>
+                                <li>{{detail.user.email}}</li>
+                                <li>{{detail.website}}</li>
+                        </div>
+                    </div>
+             
+            </ul>
+        
+        <link rel="stylesheet" href="{% static "css/main.css" %}"></link>   
+    </body>
+</html>

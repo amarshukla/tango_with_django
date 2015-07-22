@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from rango.models import Category, Page
+from rango.models import Category, Page, UserProfile
 from rango.forms import CategoryForm, PageForm
 from rango.forms import UserForm, UserProfileForm
 
@@ -22,7 +22,7 @@ def category(request, category_name_slug):
 		
 		category = Category.objects.get(slug=category_name_slug)
 		context_dict['category_name'] = category.name
-		context_dict['category_name_url'] = category_name_slug
+		context_dict['category_name_slug'] = category_name_slug
 		pages = Page.objects.filter(category=category).order_by('-views')[:5]
 		context_dict['pages'] = pages
 		context_dict['category'] = category
@@ -132,3 +132,15 @@ def register(request):
     return render(request,
             'rango/register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
+
+def listUsers(request):
+	users = UserProfile.objects.all()
+	return render(request, 'rango/listUsers.html',{'users':users})
+
+def userDetail(request):
+	user_name = request.GET.getlist('username')   #to get username parameter value from http url. 
+	for i in user_name:
+		user_name = i
+	user_detail = UserProfile.objects.get(user__username__iexact=user_name)
+	print 'amar',user_name
+	return render(request, 'rango/userDetail.html',{'detail':user_detail})

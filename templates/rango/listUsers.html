@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Rango</title>
+    </head>
+
+    <body>
+        <div class="container">
+            
+            <div class="fake_img">
+                <h1>Registered User List</h1>
+            </div>
+
+            <div class="fake_img">
+                <a href="/rango/register/"><img src="{% static "images/appIcons/registerUser.png" %}" alt="register new user"/></a> 
+            </div>
+
+        </div>
+        {% if users %}
+            <ul class="tag">
+                {% for i in users %}
+                    <!--<li class="tag"><a class="tag" href="{{ user.info }}">{{ i }}</a></li>-->
+                    <div class="container">
+                        <div class="fake_img">
+                            <ul><img src="{{MEDIA_URL}}/{{i.picture}}" width="90" height="90"/></ul>
+                                <a href="../userDetail/?username={{i}}"><li>{{i}}</li></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There is no registered user.</strong>
+        {% endif %}
+        
+        
+        <link rel="stylesheet" href="{% static "css/main.css" %}"></link>   
+    </body>
+</html>

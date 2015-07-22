@@ -14,7 +14,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "Categories"
     def __str__(self):  #For Python 2, use __str__ on Python 3
-        return self.name
+        return self.slug
 
 class Page(models.Model):
     category = models.ForeignKey(Category)
@@ -29,6 +29,7 @@ class Page(models.Model):
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
+
 
     # The additional attributes we wish to include.
     website = models.URLField(blank=True)

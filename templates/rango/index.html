@@ -5,32 +5,54 @@
     <head>
         <title>Rango</title>
         <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
+        <link rel="stylesheet" href="{% static "css/main.css" %}"></link>
     </head>
 
     <body>
-        <h1>Rango says...</h1>
-        hello world! <strong>{{ boldmessage }}</strong><br /> <br/>
-        <a href="/rango/add_category">Add New Category</a> <br/><br/>
-        <a href="/rango/add_page">Add New Page</a>
+
+        <div id="addItems" style="vertical-align: text-top;">
+            
+            
+        </div>
+        <div class="container">
+            <div class="fake_img">
+                <a href="/rango/add_category"><img src="{% static "images/appIcons/addCategory.png" %}" alt="add new category"/></a> 
+            </div>
+            <div class="fake_img">
+                <a href="/rango/register"><img src="{% static "images/appIcons/registerUser.png" %}" alt="register user"/></a> 
+            </div>
+             <div class="fake_img">
+                <a href="/rango/listUsers"><img src="{% static "images/appIcons/viewUsers.png" %}" alt="add new category"/></a> 
+            </div>
+            <div class="fake_img">
+                <a class="tag" href="/rango/hey/{{ name }}">
+                    <img src="{% static "images/appIcons/about.png" %}" alt="About me"/>
+                </a>
+            </div>
+        </div>
         {% if categories %}
-            <ul>{% for category in categories %}</ul>
-               <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
-                {% endfor %}
+            <div class="container">
+                <div class="listCat">
+                    <ul class="tag">{% for category in categories %}</ul>
+                       <li class="tag"><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
+                        {% endfor %}
+                </div>
         {% else %}
             <strong> There are no categories present. </strong>
         {% endif %}
-        <img src="{% static "images/terminal_love.jpg" %}" alt="terminal love" width="480" height="300"/>
-    	<a href="/rango/hey/{{ name }}">About</a><br />
-        <br><br>
+                
         {% if pages %}
-            <ul>Top 5 most viewed page in any category are : 
-            {% for page in pages %}
-                {%for i in page %}
-                    <li>{{i.title}}</li>
+            <div class="listCat">
+                <ul class="tag"><h2 class="tag top5">Top 5 most viewed pages in any category: </h2>
+                {% for page in pages %}
+                    {%for i in page %}
+                        <li class="tag">{{i.title}}</li>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-            </ul>
-        {% endif %}
+                </ul>
+            </div>
+        {% endif %}        
+        </div>
     </body>
 
 </html>
