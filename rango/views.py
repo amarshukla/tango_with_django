@@ -4,6 +4,14 @@ from rango.models import Category, Page, UserProfile
 from rango.forms import CategoryForm, PageForm
 from rango.forms import UserForm, UserProfileForm
 
+def main(request):
+	return render(request, 'rango/main.html')
+
+def do_login(request):
+	#if logged in then redirect to index.html else do login and then redirect.
+	#to-do
+	return render(request, 'rango/index.html',cat_dict)
+
 def index(request):
 	most_viewed_pages={'pages':[]}
 	cat = Category.objects.all()
