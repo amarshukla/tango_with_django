@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	
+	$("div#panel").slideDown("slow");
 	// Expand Panel
 	$("#open").click(function(){
 		$("div#panel").slideDown("slow");

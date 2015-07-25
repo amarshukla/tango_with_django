@@ -1,27 +1,52 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from rango.models import Category, Page, UserProfile
 from rango.forms import CategoryForm, PageForm
 from rango.forms import UserForm, UserProfileForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 
 def main(request):
-	return render(request, 'rango/main.html')
+    logout(request)
+    request.session.set_test_cookie()
+    return render(request, 'rango/main.html')
 
 def do_login(request):
-	#if logged in then redirect to index.html else do login and then redirect.
-	#to-do
-	return render(request, 'rango/index.html',cat_dict)
+    if request.method == 'POST':
+        username = request.POST.get('log')
+        password = request.POST.get('pwd')
+        user = authenticate(username = username, password = password)
+        
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/rango')
+            else:
+                return HttpResponse('your account is disabled')
+        else:
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse('Invalid login details provided, please re-check.')
+    else:
+        return render(request, 'rango/main.html', {})
+def do_logout(request):
+    if request.user.is_authenticated:
+        logout(request)
+    #return HttpResponseRedirect('http://127.0.0.1:8000/')
+    return render(request, 'http://127.0.0.1:8000/')
 
+
+@login_required
 def index(request):
-	most_viewed_pages={'pages':[]}
-	cat = Category.objects.all()
+    
+    if not request.user.is_authenticated():
+        return render(request, 'rango/main.html')
 
-	most_viewed_pages['pages'].append(Page.objects.filter(category__in=cat).order_by('-views')[:5])
-	 
-	cat_dict = {'categories': Category.objects.order_by('-likes')[:5], 'boldmessage':"hello from strong bold message lol",'name':'amarshukla'}
-	cat_dict.update(most_viewed_pages)
-	print cat_dict
-	return render(request, 'rango/index.html',cat_dict)
+    most_viewed_pages={'pages':[]}
+    cat = Category.objects.all()
+    most_viewed_pages['pages'].append(Page.objects.filter(category__in=cat).order_by('-views')[:5])
+    cat_dict = {'categories': Category.objects.order_by('-likes')[:5], 'boldmessage':"hello from strong bold message lol",'name':'amarshukla'}
+    cat_dict.update(most_viewed_pages)
+    return render(request, 'rango/index.html',cat_dict)
 
 def category(request, category_name_slug):
 	try:
@@ -87,7 +112,9 @@ def add_page(request, category_name_slug):
 
 def register(request):
 
-    
+    if request.session.set_test_cookie_worked():
+        print "SET cookie worked"
+        request.session.delete_test_cookie()
     registered = False
 
     # If it's a HTTP POST, we're interested in processing form data.

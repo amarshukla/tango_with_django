@@ -9,7 +9,16 @@
     </head>
 
     <body>
-
+        <div>
+            <div class="logoutDiv">
+                {% if user.is_authenticated %}
+                    Hello {{user.username}}
+                {% endif %}
+            </div>
+            <div class="logoutDiv">
+            <a href="/rango/do_logout"><img src="{% static "images/appIcons/logout.png" %}" alt="logout" width="20" height="20" /></a>
+            </div>
+        </div>
         <div id="addItems" style="vertical-align: text-top;">
             
             

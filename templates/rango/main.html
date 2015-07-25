@@ -22,7 +22,7 @@
 			</div>
 			<div class="left">
 				<!-- Login Form -->
-				<form class="clearfix" action="/rango/do_login" method="post">
+				<form class="clearfix" action="/rango/do_login/" method="post">
 					{% csrf_token %}
 					<h1>Member Login</h1>
 					<label class="grey" for="log">Username:</label>
@@ -39,10 +39,14 @@
 				<!-- Register Form -->
 				<form action="#" method="post">
 					<h1>Not a member yet? Sign Up!</h1>				
-					<label class="grey" for="signup">Username:</label>
-					<input class="field" type="text" name="signup" id="signup" value="" size="23" />
+					<label class="grey" for="username">Username:</label>
+					<input class="field" type="text" name="username" id="signup" value="" size="23" />
 					<label class="grey" for="email">Email:</label>
 					<input class="field" type="text" name="email" id="email" size="23" />
+					<label class="grey" for="website">website:</label>
+					<input class="field" type="text" name="website" id="website" size="23" />
+					<label class="grey" for="picture">picture:</label>
+					<input class="field" type="text" name="picture" id="picture" size="23" />
 					<label>A password will be e-mailed to you.</label>
 					<input type="submit" name="submit" value="Register" class="bt_register" />
 				</form>

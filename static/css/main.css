@@ -2,6 +2,12 @@
     
 }
 
+.logoutDiv{
+    display:inline-block;
+    margin: 0px 34px;
+    padding:0px;
+}
+
 .fake_img{
     display:inline-block;
     margin: 5px 20px;
